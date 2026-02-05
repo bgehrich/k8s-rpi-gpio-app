@@ -1,22 +1,40 @@
-# from: https://code-workbench.com/2025/04/10/enabling-gpio-use-from-kubernetes-pod/
+# based on https://code-workbench.com/2025/04/10/enabling-gpio-use-from-kubernetes-pod/
 
+from flask import Flask
 from gpiozero import Button, LED 
 from signal import pause
 
-class Flashlight:
-    def __init__(self, led_pin, button_pin):
-        self.led = LED(led_pin)
-        self.button = Button(button_pin)
+app = Flask(__name__)
 
-        self.button.when_pressed = self.led.on
-        self.button.when_released = self.led.off
+led = LED(26) # Assuming LED on GPIO 17
+button = Button(4)
 
-    def run(self):
-        print("Flashlight app is running")
-        pause()
+@app.route('/led/')
+def led_status():
+    if led.is_active:
+        return "Turning is on"
+    else:
+       return "Turning is off"
 
-if __name__ == "__main__":
-    print("Flashlight app started")
-    print("Setting up GPIO pins")
-    flashlight = Flashlight(led_pin=26, button_pin=4)
-    flashlight.run()
+@app.route('/led/on')
+def turn_on():
+    led.on()
+    return "Turning LED on"
+
+@app.route('/led/off')
+def turn_off():
+    led.off()
+    return "Turning LED off"
+
+
+@app.route('/button/')
+def button_status():
+    if button.is_active:
+        return "Button is on"
+    else
+        return "Button is off"
+    
+
+if __name__ == '__main__':
+    print("app started")
+    app.run(host='0.0.0.0', port=5000)

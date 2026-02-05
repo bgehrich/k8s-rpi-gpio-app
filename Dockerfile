@@ -14,4 +14,6 @@ RUN apt-get install -y python3-gpiozero
 
 RUN chmod +x /app/main.py
 
+EXPOSE 5000
+
 CMD ["python3", "./main.py"]
