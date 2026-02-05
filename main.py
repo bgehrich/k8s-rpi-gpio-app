@@ -31,7 +31,7 @@ def turn_off():
 def button_status():
     if button.is_active:
         return "Button is on"
-    else
+    else:
         return "Button is off"
     
 

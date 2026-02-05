@@ -9,8 +9,12 @@ WORKDIR /app
 RUN apt-get update
 # Install Python3
 RUN apt-get install -y python3-pip
+
 # Install Python3 GPIO
 RUN apt-get install -y python3-gpiozero
+
+# Install Python3 GPIO
+RUN apt-get install -y python3-flask
 
 RUN chmod +x /app/main.py
 
