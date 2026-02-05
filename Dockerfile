@@ -1,12 +1,18 @@
 # from: https://code-workbench.com/2025/04/10/enabling-gpio-use-from-kubernetes-pod/
 
 FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Copy Code File
 COPY . /app
+
 # Set the working directory
 WORKDIR /app
+
 # Install dependencies
 RUN apt-get update
+
 # Install Python3
 RUN apt-get install -y python3-pip
 
